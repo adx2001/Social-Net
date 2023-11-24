@@ -77,7 +77,7 @@ export const deleteUser = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   else {
-    res.status(403).json("Access Denied ! You can only delete your profile");
+    res.status(403).json("You can only delete your profile");
   }
 };
 
