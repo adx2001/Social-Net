@@ -12,11 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { uploadImage, uploadPost } from "../../actions/uploadAction";
 
 const PostShare = () => {
-  const serverPublic=process.env.REACT_APP_PUBLIC_FOLDER 
-  const loading=useSelector((state)=>state.postReducer.uploading)
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+  const loading = useSelector((state) => state.postReducer.uploading);
   const [image, setImage] = useState(null);
   const imageRef = useRef();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const desc = useRef();
   const { user } = useSelector((state) => state.authReducer.authData);
 
@@ -26,32 +26,31 @@ const PostShare = () => {
       setImage(img);
     }
   };
-  const reset=()=>{
-    setImage(null)
-    desc.current.value=''
-  }
+  const reset = () => {
+    setImage(null);
+    desc.current.value = "";
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPost = {
       userId: user._id,
-      desc: desc.current.value
+      desc: desc.current.value,
     };
     if (image) {
       const data = new FormData();
-      const filename = Date.now() + image.name
-      data.append("name",filename)
-      data.append("file",image)
-      newPost.image=filename;
-      console.log(newPost)
+      const filename = Date.now() + image.name;
+      data.append("name", filename);
+      data.append("file", image);
+      newPost.image = filename;
+      console.log(newPost);
       try {
-        dispatch(uploadImage(data))
+        dispatch(uploadImage(data));
       } catch (error) {
-        console.log(error)
-        
+        console.log(error);
       }
     }
-    dispatch(uploadPost(newPost))
-    reset()
+    dispatch(uploadPost(newPost));
+    reset();
   };
 
   return (
@@ -59,12 +58,20 @@ const PostShare = () => {
       <div className="container mt-4">
         <div
           className="card"
-          style={{ backgroundColor: "rgb(5, 59, 80)" , border:'none',width:'594px'}}
+          style={{
+            backgroundColor: "rgb(5, 59, 80)",
+            border: "none",
+            width: "594px",
+          }}
         >
           <div className="card-body">
             <div className="d-flex">
               <img
-                src={user.profilePicture? serverPublic+user.profilePicture:serverPublic+"defaultProfile.png"}
+                src={
+                  user.profilePicture
+                    ? serverPublic + user.profilePicture
+                    : serverPublic + "defaultProfile.png"
+                }
                 alt=""
                 className="rounded-circle me-1"
                 style={{
@@ -106,7 +113,8 @@ const PostShare = () => {
                 className="btn btn-outline-success rounded-pill mt-3"
                 onClick={handleSubmit}
               >
-                <FaShare size={20} className="text-danger" />{loading?"Uploading....":""}
+                <FaShare size={20} className="text-danger" />
+                {loading ? "Uploading...." : ""}
               </button>
             </div>
             <div style={{ display: "none" }}>

@@ -109,7 +109,7 @@ export const unFollowUser = async (req, res) => {
     const id = req.params.id;
     const { currentUserId } = req.body;
     if (currentUserId === id) {
-      res.status(403).json("Action Forbidden , Your cant follow yourself");
+      res.status(403).json("Your cant follow yourself");
     } else {
       try {
           const followUser= await UserModel.findById(id)
