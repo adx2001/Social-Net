@@ -60,7 +60,7 @@ export const updateUser = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   } else {
-    res.status(403).json("Access Denied ! You can only update your profile");
+    res.status(403).json("You can only update your profile");
   }
 };
 
